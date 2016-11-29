@@ -167,7 +167,6 @@ angular
 
     angular.element($window).on('resize', _.debounce(function() {
       $scope.$broadcast('calendar.refreshView');
-      console.log(vm.carouselContainer.offsetWidth);
     }, 100));
   })
   .directive('mwlCalendarMonthsCarousel', function() {
