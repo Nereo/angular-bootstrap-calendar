@@ -17,12 +17,14 @@ angular
       vm.openRowIndex = null;
       vm.openDayIndex = null;
 
-      if (vm.cellIsOpen && vm.view) {
-        vm.view.forEach(function(day, dayIndex) {
-          if (moment(vm.viewDate).startOf('day').isSame(day.date)) {
-            vm.openDayIndex = dayIndex;
-            vm.openRowIndex = Math.floor(dayIndex / 7);
-          }
+      if (vm.cellIsOpen && vm.months) {
+        vm.months.forEach(function(month, monthIndex) {
+          month.days.forEach(function(day, dayIndex) {
+            if (moment(vm.viewDate).startOf('day').isSame(day.date)) {
+              vm.openDayIndex = (monthIndex, dayIndex);
+              vm.openRowIndex = (monthIndex, Math.floor(dayIndex / 7));
+            }
+          });
         });
       }
     }
@@ -40,10 +42,10 @@ angular
       } else if (!vm.cellAutoOpenDisabled && vm.cellIsOpen && vm.openRowIndex === null) {
         //Auto open the calendar to the current day if set
         vm.openDayIndex = null;
-        vm.months.forEach(function(month) {
+        vm.months.forEach(function(month, monthIndex) {
           month.days.forEach(function(day) {
             if (day.inMonth && moment(vm.viewDate).startOf('day').isSame(day.date)) {
-              vm.dayClicked(day, true);
+              vm.dayClicked(day, monthIndex, true);
             }
           });
         });
@@ -58,7 +60,7 @@ angular
       ], toggleCell);
     }
 
-    vm.dayClicked = function(day, dayClickedFirstRun, $event) {
+    vm.dayClicked = function(day, currentMonthIndex, dayClickedFirstRun, $event) {
 
       if (!dayClickedFirstRun) {
         vm.onTimespanClick({
@@ -73,13 +75,13 @@ angular
 
       if (!vm.cellAutoOpenDisabled) {
         vm.openRowIndex = null;
-        var dayIndex = vm.view.indexOf(day);
-        if (dayIndex === vm.openDayIndex) { //the day has been clicked and is already open
+        var currentDayIndex = vm.months[currentMonthIndex].days.indexOf(day);
+        if (vm.openDayIndex && currentMonthIndex === vm.openDayIndex[0] && currentDayIndex === vm.openDayIndex[1]) {
           vm.openDayIndex = null; //close the open day
           vm.cellIsOpen = false;
         } else {
-          vm.openDayIndex = dayIndex;
-          vm.openRowIndex = Math.floor(dayIndex / 7);
+          vm.openDayIndex = (currentMonthIndex, currentDayIndex);
+          vm.openRowIndex = Math.floor(currentDayIndex / 7);
           vm.cellIsOpen = true;
         }
       }

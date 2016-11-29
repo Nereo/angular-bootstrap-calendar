@@ -1,34 +1,41 @@
-<div class="cal-months-carousel-container">
-  <div ng-repeat="month in vm.months" style="float:left;width:{{ 100 / vm.monthsToShow }}%;padding:20px;">
+<div ng-repeat="month in vm.months track by $index" class="cal-month-carousel" style="width:{{ 100 / vm.monthsToShow }}%;">
 
-    <h2 class="text-center">{{ month.firstDate | calendarDate:'monthYear':true }}</h2>
+  <h2 class="text-center">{{ month.firstDate | calendarDate:'monthYear':true }}</h2>
 
-    <div class="cal-row-fluid cal-row-head">
+  <div class="cal-row-fluid cal-row-head">
 
-      <div class="cal-cell1" ng-repeat="day in vm.weekDays track by $index" ng-bind="day"></div>
+    <div class="cal-cell1" ng-repeat="day in vm.weekDays track by $index" ng-bind="day"></div>
 
-    </div>
-    <div class="cal-month-box">
+  </div>
+  <div class="cal-month-box">
 
-      <div
-        ng-repeat="rowOffset in month.rowOffsets track by rowOffset"
-        ng-mouseenter="rowHovered = true"
-        ng-mouseleave="rowHovered = false">
-        <div class="cal-row-fluid cal-before-eventlist">
-          <div
-            ng-repeat="day in month.days | calendarLimitTo:7:rowOffset track by $index"
-            ng-init="dayIndex = month.days.indexOf(day)"
-            class="cal-cell1 cal-cell {{ day.highlightClass }}"
-            ng-style="{backgroundColor: day.backgroundColor}"
-            ng-click="vm.dayClicked(day, false, $event)"
-            ng-class="{pointer: day.events.length > 0}">
-            <ng-include src="vm.customTemplateUrls.calendarMonthCell || vm.calendarConfig.templates.calendarMonthCell"></ng-include>
-          </div>
+    <div
+      ng-repeat="rowOffset in month.rowOffsets track by rowOffset"
+      ng-mouseenter="rowHovered = true"
+      ng-mouseleave="rowHovered = false">
+      <div class="cal-row-fluid cal-before-eventlist">
+        <div
+          ng-repeat="day in month.days | calendarLimitTo:7:rowOffset track by $index"
+          ng-init="dayIndex = month.days.indexOf(day); monthIndex = $parent.$parent.$index"
+          class="cal-cell1 cal-cell {{ day.highlightClass }}"
+          ng-style="{backgroundColor: day.backgroundColor}"
+          ng-click="vm.dayClicked(day, monthIndex, false, $event)"
+          ng-class="{pointer: day.events.length > 0}">
+          <ng-include src="vm.customTemplateUrls.calendarMonthsCarouselCell || vm.calendarConfig.templates.calendarMonthsCarouselCell"></ng-include>
         </div>
-
       </div>
+
+      <mwl-calendar-slide-box
+        is-open="vm.openRowIndex[0] === $parent.$index && vm.openRowIndex[1] === $index && (vm.cellAutoOpenDisabled || month.days[vm.openDayIndex[1]].events.length > 0) && !vm.slideBoxDisabled"
+        events="month.days[vm.openDayIndex[1]].events"
+        on-event-click="vm.onEventClick"
+        cell="month.days[vm.openDayIndex[1]]"
+        custom-template-urls="vm.customTemplateUrls"
+        template-scope="vm.templateScope">
+      </mwl-calendar-slide-box>
 
     </div>
 
   </div>
+
 </div>

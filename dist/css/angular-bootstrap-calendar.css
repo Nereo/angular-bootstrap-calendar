@@ -413,6 +413,10 @@ mwl-calendar .cal-week-box {
   border-left: 1px solid #e1e1e1;
   border-radius: 2px;
 }
+mwl-calendar .cal-month-carousel {
+  float: left;
+  padding-left: 20px;
+}
 mwl-calendar .cal-month-box {
   border-right: 0px;
   border-bottom: 0px;
