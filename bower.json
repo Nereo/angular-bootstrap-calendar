@@ -1,9 +1,9 @@
 {
-  "name": "angular-bootstrap-calendar",
-  "version": "0.27.1",
-  "homepage": "https://github.com/mattlewis92/angular-bootstrap-calendar",
+  "name": "angular-bootstrap-calendar-nereo",
+  "version": "0.0.2",
+  "homepage": "https://github.com/Nereo/angular-bootstrap-calendar",
   "authors": [
-    "Matt Lewis"
+    "François Voron"
   ],
   "description": "A pure AngularJS bootstrap themed responsive calendar that can display events and has views for year, month, week and day",
   "main": [
