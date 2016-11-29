@@ -166,6 +166,22 @@ angular
 
     }
 
+    function getMonthsCarouselView(events, viewDate, monthsToShow, cellModifier) {
+      var view = {
+        months: []
+      };
+      var date = moment(viewDate);
+
+      for (var i = 0; i < monthsToShow; i++) {
+        var monthView = getMonthView(events, date, cellModifier);
+        monthView.firstDate = date.clone();
+        view.months.push(monthView);
+        date.add(1, 'months').startOf('month').toDate();
+      }
+
+      return view;
+    }
+
     function getWeekView(events, viewDate) {
 
       var days = calendarUtils.getWeekViewHeader({
@@ -308,6 +324,7 @@ angular
       getWeekDayNames: getWeekDayNames,
       getYearView: getYearView,
       getMonthView: getMonthView,
+      getMonthsCarouselView: getMonthsCarouselView,
       getWeekView: getWeekView,
       getDayView: getDayView,
       getWeekViewWithTimes: getWeekViewWithTimes,

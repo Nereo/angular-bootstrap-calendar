@@ -99,6 +99,7 @@ angular
         'vm.viewDate',
         'vm.view',
         'vm.cellIsOpen',
+        'vm.monthsToShow',
         function() {
           return moment.locale() + $locale.id; //Auto update the calendar when the locale changes
         }
@@ -127,6 +128,8 @@ angular
         view: '=',
         viewTitle: '=?',
         viewDate: '=',
+        monthsToShow: '=?',
+        responsive: '=?',
         cellIsOpen: '=?',
         cellAutoOpenDisabled: '=?',
         slideBoxDisabled: '=?',

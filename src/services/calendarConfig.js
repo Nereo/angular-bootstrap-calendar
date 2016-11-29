@@ -11,6 +11,7 @@ angular
           hour: 'ha',
           day: 'd MMM',
           month: 'MMMM',
+          monthYear: 'MMMM yyyy',
           weekDay: 'EEEE',
           time: 'HH:mm',
           datetime: 'MMM d, h:mm a'
@@ -27,6 +28,7 @@ angular
           hour: 'ha',
           day: 'D MMM',
           month: 'MMMM',
+          monthYear: 'MMMM YYYY',
           weekDay: 'dddd',
           time: 'HH:mm',
           datetime: 'MMM D, h:mm a'
