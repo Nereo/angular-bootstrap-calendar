@@ -1,6 +1,6 @@
 /**
  * angular-bootstrap-calendar-nereo - A pure AngularJS bootstrap themed responsive calendar that can display events and has views for year, month, week and day
- * @version v0.0.4
+ * @version v0.0.5
  * @link https://github.com/Nereo/angular-bootstrap-calendar
  * @license MIT
  */
@@ -313,6 +313,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        cellAutoOpenDisabled: '=?',
 	        slideBoxDisabled: '=?',
 	        customTemplateUrls: '=?',
+	        onDayClick: '&?',
 	        onEventClick: '&',
 	        onEventTimesChanged: '&',
 	        onTimespanClick: '&',
@@ -2533,6 +2534,16 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    vm.dayClicked = function(day, currentMonthIndex, dayClickedFirstRun, $event) {
 
+	      if (vm.onDayClick && day.inMonth) {
+	        $event.stopPropagation();
+	        if (day.events.length > 0) {
+	          vm.onEventClick({calendarEvent: day.events[0]});
+	        } else {
+	          vm.onDayClick({day: day});
+	        }
+	        return;
+	      }
+
 	      if (!dayClickedFirstRun) {
 	        vm.onTimespanClick({
 	          calendarDate: day.date.toDate(),
@@ -2557,22 +2568,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }
 	      }
 
-	    };
-
-	    vm.highlightEvent = function(event, shouldAddClass) {
-
-	      vm.months.forEach(function(month) {
-	        month.days.forEach(function(day) {
-	          delete day.highlightClass;
-	          delete day.backgroundColor;
-	          if (shouldAddClass) {
-	            var dayContainsEvent = day.events.indexOf(event) > -1;
-	            if (dayContainsEvent) {
-	              day.backgroundColor = event.color ? event.color.secondary : '';
-	            }
-	          }
-	        });
-	      });
 	    };
 
 	    vm.handleEventDrop = function(event, newDayDate, draggedFromDate) {
@@ -2644,6 +2639,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        viewDate: '=',
 	        monthsToShow: '=',
 	        responsive: '=',
+	        onDayClick: '=',
 	        onEventClick: '=',
 	        onEventTimesChanged: '=',
 	        onDateRangeSelect: '=',
