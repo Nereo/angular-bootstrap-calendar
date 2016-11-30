@@ -64,7 +64,11 @@ angular
 
       if (vm.onDayClick && day.inMonth) {
         $event.stopPropagation();
-        vm.onDayClick({day: day});
+        if (day.events.length > 0) {
+          vm.onEventClick({calendarEvent: day.events[0]});
+        } else {
+          vm.onDayClick({day: day});
+        }
         return;
       }
 
@@ -92,22 +96,6 @@ angular
         }
       }
 
-    };
-
-    vm.highlightEvent = function(event, shouldAddClass) {
-
-      vm.months.forEach(function(month) {
-        month.days.forEach(function(day) {
-          delete day.highlightClass;
-          delete day.backgroundColor;
-          if (shouldAddClass) {
-            var dayContainsEvent = day.events.indexOf(event) > -1;
-            if (dayContainsEvent) {
-              day.backgroundColor = event.color ? event.color.secondary : '';
-            }
-          }
-        });
-      });
     };
 
     vm.handleEventDrop = function(event, newDayDate, draggedFromDate) {

@@ -18,7 +18,7 @@
           ng-repeat="day in month.days | calendarLimitTo:7:rowOffset track by $index"
           ng-init="dayIndex = month.days.indexOf(day); monthIndex = $parent.$parent.$index"
           class="cal-cell1 cal-cell {{ day.highlightClass }}"
-          ng-style="{backgroundColor: day.backgroundColor}"
+          ng-style="{backgroundColor: (day.events.length > 0 && day.events[0].color ? day.events[0].color.secondary : day.backgroundColor)}"
           ng-click="vm.dayClicked(day, monthIndex, false, $event)"
           ng-class="{pointer: (vm.onDayClick || day.events.length > 0) && day.inMonth}">
           <ng-include src="vm.customTemplateUrls.calendarMonthsCarouselCell || vm.calendarConfig.templates.calendarMonthsCarouselCell"></ng-include>
