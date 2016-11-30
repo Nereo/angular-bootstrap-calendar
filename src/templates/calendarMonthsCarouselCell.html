@@ -16,8 +16,8 @@
     'cal-day-selected': vm.dateRangeSelect && vm.dateRangeSelect.startDate <= day.date && day.date <= vm.dateRangeSelect.endDate,
     'cal-day-open': monthIndex === vm.openDayIndex[0] && dayIndex === vm.openDayIndex[1],
     'cal-day-event': day.events.length > 0,
-    'cal-day-event-morning-only': day.events.length > 0 && day.events[0].afternoonIncluded === false,
-    'cal-day-event-afternoon-only': day.events.length > 0 && !day.events[0].morningIncluded === false
+    'cal-day-event-morning-only': day.events.length > 0 && vm.isMorningOnly(day, day.events[0]),
+    'cal-day-event-afternoon-only': day.events.length > 0 && vm.isAfternoonOnly(day, day.events[0])
   }">
 
   <small

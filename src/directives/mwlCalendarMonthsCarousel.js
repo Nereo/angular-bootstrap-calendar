@@ -60,6 +60,14 @@ angular
       ], toggleCell);
     }
 
+    vm.isMorningOnly = function(day, event) {
+      return event.afternoonIncluded === false && moment(event.endsAt).isSame(day.date, 'day');
+    };
+
+    vm.isAfternoonOnly = function(day, event) {
+      return event.morningIncluded === false && moment(event.startsAt).isSame(day.date, 'day');
+    };
+
     vm.dayClicked = function(day, currentMonthIndex, dayClickedFirstRun, $event) {
 
       if (vm.onDayClick && day.inMonth) {

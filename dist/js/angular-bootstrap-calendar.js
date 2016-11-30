@@ -1,6 +1,6 @@
 /**
  * angular-bootstrap-calendar-nereo - A pure AngularJS bootstrap themed responsive calendar that can display events and has views for year, month, week and day
- * @version v0.0.5
+ * @version v0.0.6
  * @link https://github.com/Nereo/angular-bootstrap-calendar
  * @license MIT
  */
@@ -2531,6 +2531,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	        'vm.viewDate',
 	      ], toggleCell);
 	    }
+
+	    vm.isMorningOnly = function(day, event) {
+	      return event.afternoonIncluded === false && moment(event.endsAt).isSame(day.date, 'day');
+	    };
+
+	    vm.isAfternoonOnly = function(day, event) {
+	      return event.morningIncluded === false && moment(event.startsAt).isSame(day.date, 'day');
+	    };
 
 	    vm.dayClicked = function(day, currentMonthIndex, dayClickedFirstRun, $event) {
 

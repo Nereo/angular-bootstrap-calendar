@@ -1,6 +1,6 @@
 /**
  * angular-bootstrap-calendar-nereo - A pure AngularJS bootstrap themed responsive calendar that can display events and has views for year, month, week and day
- * @version v0.0.5
+ * @version v0.0.6
  * @link https://github.com/Nereo/angular-bootstrap-calendar
  * @license MIT
  */
@@ -208,7 +208,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 20 */
 /***/ function(module, exports) {
 
-	module.exports = "<div\n  mwl-droppable\n  on-drop=\"vm.handleEventDrop(dropData.event, day.date, dropData.draggedFromDate)\"\n  mwl-drag-select=\"!!vm.onDateRangeSelect\"\n  on-drag-select-start=\"vm.onDragSelectStart(day)\"\n  on-drag-select-move=\"vm.onDragSelectMove(day)\"\n  on-drag-select-end=\"vm.onDragSelectEnd(day)\"\n  class=\"cal-month-day {{ day.cssClass }}\"\n  ng-class=\"{\n    'cal-day-outmonth': !day.inMonth,\n    'cal-day-inmonth': day.inMonth,\n    'cal-day-weekend': day.isWeekend,\n    'cal-day-past': day.isPast,\n    'cal-day-today': day.isToday,\n    'cal-day-future': day.isFuture,\n    'cal-day-selected': vm.dateRangeSelect && vm.dateRangeSelect.startDate <= day.date && day.date <= vm.dateRangeSelect.endDate,\n    'cal-day-open': monthIndex === vm.openDayIndex[0] && dayIndex === vm.openDayIndex[1],\n    'cal-day-event': day.events.length > 0,\n    'cal-day-event-morning-only': day.events.length > 0 && day.events[0].afternoonIncluded === false,\n    'cal-day-event-afternoon-only': day.events.length > 0 && !day.events[0].morningIncluded === false\n  }\">\n\n  <small\n    class=\"cal-events-num badge badge-important pull-left\"\n    ng-show=\"day.badgeTotal > 0\"\n    ng-bind=\"day.badgeTotal\">\n  </small>\n\n  <span\n    class=\"pull-right\"\n    data-cal-date\n    ng-bind=\"day.label\">\n  </span>\n\n  <div class=\"cal-day-tick\" ng-show=\"monthIndex === vm.openDayIndex[0] && dayIndex === vm.openDayIndex[1] && (vm.cellAutoOpenDisabled || month[vm.openDayIndex[1]].events.length > 0) && !vm.slideBoxDisabled\">\n    <i class=\"glyphicon glyphicon-chevron-up\"></i>\n    <i class=\"fa fa-chevron-up\"></i>\n  </div>\n\n</div>\n";
+	module.exports = "<div\n  mwl-droppable\n  on-drop=\"vm.handleEventDrop(dropData.event, day.date, dropData.draggedFromDate)\"\n  mwl-drag-select=\"!!vm.onDateRangeSelect\"\n  on-drag-select-start=\"vm.onDragSelectStart(day)\"\n  on-drag-select-move=\"vm.onDragSelectMove(day)\"\n  on-drag-select-end=\"vm.onDragSelectEnd(day)\"\n  class=\"cal-month-day {{ day.cssClass }}\"\n  ng-class=\"{\n    'cal-day-outmonth': !day.inMonth,\n    'cal-day-inmonth': day.inMonth,\n    'cal-day-weekend': day.isWeekend,\n    'cal-day-past': day.isPast,\n    'cal-day-today': day.isToday,\n    'cal-day-future': day.isFuture,\n    'cal-day-selected': vm.dateRangeSelect && vm.dateRangeSelect.startDate <= day.date && day.date <= vm.dateRangeSelect.endDate,\n    'cal-day-open': monthIndex === vm.openDayIndex[0] && dayIndex === vm.openDayIndex[1],\n    'cal-day-event': day.events.length > 0,\n    'cal-day-event-morning-only': day.events.length > 0 && vm.isMorningOnly(day, day.events[0]),\n    'cal-day-event-afternoon-only': day.events.length > 0 && vm.isAfternoonOnly(day, day.events[0])\n  }\">\n\n  <small\n    class=\"cal-events-num badge badge-important pull-left\"\n    ng-show=\"day.badgeTotal > 0\"\n    ng-bind=\"day.badgeTotal\">\n  </small>\n\n  <span\n    class=\"pull-right\"\n    data-cal-date\n    ng-bind=\"day.label\">\n  </span>\n\n  <div class=\"cal-day-tick\" ng-show=\"monthIndex === vm.openDayIndex[0] && dayIndex === vm.openDayIndex[1] && (vm.cellAutoOpenDisabled || month[vm.openDayIndex[1]].events.length > 0) && !vm.slideBoxDisabled\">\n    <i class=\"glyphicon glyphicon-chevron-up\"></i>\n    <i class=\"fa fa-chevron-up\"></i>\n  </div>\n\n</div>\n";
 
 /***/ },
 /* 21 */
@@ -2628,6 +2628,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	        'vm.viewDate',
 	      ], toggleCell);
 	    }
+
+	    vm.isMorningOnly = function(day, event) {
+	      return event.afternoonIncluded === false && moment(event.endsAt).isSame(day.date, 'day');
+	    };
+
+	    vm.isAfternoonOnly = function(day, event) {
+	      return event.morningIncluded === false && moment(event.startsAt).isSame(day.date, 'day');
+	    };
 
 	    vm.dayClicked = function(day, currentMonthIndex, dayClickedFirstRun, $event) {
 
