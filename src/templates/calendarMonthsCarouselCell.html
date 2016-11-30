@@ -16,7 +16,7 @@
     'cal-day-selected': vm.dateRangeSelect && vm.dateRangeSelect.startDate <= day.date && day.date <= vm.dateRangeSelect.endDate,
     'cal-day-open': monthIndex === vm.openDayIndex[0] && dayIndex === vm.openDayIndex[1]
   }">
-  {{ vm.openDayIndex[0] }} {{ vm.openDayIndex[1] }}
+
   <small
     class="cal-events-num badge badge-important pull-left"
     ng-show="day.badgeTotal > 0"
@@ -26,7 +26,6 @@
   <span
     class="pull-right"
     data-cal-date
-    ng-click="vm.calendarCtrl.dateClicked(day.date)"
     ng-bind="day.label">
   </span>
 

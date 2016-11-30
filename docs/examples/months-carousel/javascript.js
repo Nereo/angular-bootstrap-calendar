@@ -75,6 +75,10 @@ angular
       alert.show('Clicked', event);
     };
 
+    vm.dayClicked = function(day) {
+      alert.show('Day Clicked', day);
+    };
+
     vm.eventEdited = function(event) {
       alert.show('Edited', event);
     };

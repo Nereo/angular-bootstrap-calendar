@@ -20,7 +20,7 @@
           class="cal-cell1 cal-cell {{ day.highlightClass }}"
           ng-style="{backgroundColor: day.backgroundColor}"
           ng-click="vm.dayClicked(day, monthIndex, false, $event)"
-          ng-class="{pointer: day.events.length > 0}">
+          ng-class="{pointer: (vm.onDayClick || day.events.length > 0) && day.inMonth}">
           <ng-include src="vm.customTemplateUrls.calendarMonthsCarouselCell || vm.calendarConfig.templates.calendarMonthsCarouselCell"></ng-include>
         </div>
       </div>

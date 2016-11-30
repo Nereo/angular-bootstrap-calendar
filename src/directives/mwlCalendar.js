@@ -134,6 +134,7 @@ angular
         cellAutoOpenDisabled: '=?',
         slideBoxDisabled: '=?',
         customTemplateUrls: '=?',
+        onDayClick: '&?',
         onEventClick: '&',
         onEventTimesChanged: '&',
         onTimespanClick: '&',

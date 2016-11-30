@@ -62,6 +62,12 @@ angular
 
     vm.dayClicked = function(day, currentMonthIndex, dayClickedFirstRun, $event) {
 
+      if (vm.onDayClick && day.inMonth) {
+        $event.stopPropagation();
+        vm.onDayClick({day: day});
+        return;
+      }
+
       if (!dayClickedFirstRun) {
         vm.onTimespanClick({
           calendarDate: day.date.toDate(),
@@ -173,6 +179,7 @@ angular
         viewDate: '=',
         monthsToShow: '=',
         responsive: '=',
+        onDayClick: '=',
         onEventClick: '=',
         onEventTimesChanged: '=',
         onDateRangeSelect: '=',
