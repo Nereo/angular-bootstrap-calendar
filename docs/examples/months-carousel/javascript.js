@@ -51,7 +51,8 @@ angular
         actions: actions,
         morningIncluded: false,
         afternoonIncluded: true,
-        priority: 1
+        priority: 1,
+        pending: true
       }, {
         title: 'This is a really long event title that occurs on every year',
         color: calendarConfig.colorTypes.important,

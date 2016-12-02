@@ -1,6 +1,6 @@
 /**
  * angular-bootstrap-calendar-nereo - A pure AngularJS bootstrap themed responsive calendar that can display events and has views for year, month, week and day
- * @version v0.0.9
+ * @version v0.0.10
  * @link https://github.com/Nereo/angular-bootstrap-calendar
  * @license MIT
  */
@@ -225,6 +225,13 @@ mwl-calendar .cal-day-event {
   position: absolute;
   top: 0;
   left: 0;
+}
+mwl-calendar .cal-day-pending-event {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 80%;
+  left: 5px;
 }
 .cal-week-box {
   position: relative;
