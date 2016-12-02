@@ -34,12 +34,13 @@ angular
         title: 'An event',
         color: calendarConfig.colorTypes.warning,
         startsAt: moment().startOf('week').subtract(2, 'days').add(8, 'hours').toDate(),
-        endsAt: moment().startOf('week').add(1, 'week').add(9, 'hours').toDate(),
+        endsAt: moment().startOf('week').add(1, 'week').subtract(1, 'day').add(4, 'days').toDate(),
         draggable: true,
         resizable: true,
         actions: actions,
         morningIncluded: false,
-        afternoonIncluded: false
+        afternoonIncluded: false,
+        priority: 1
       }, {
         title: '<i class="glyphicon glyphicon-asterisk"></i> <span class="text-primary">Another event</span>, with a <i>html</i> title',
         color: calendarConfig.colorTypes.info,
@@ -47,7 +48,10 @@ angular
         endsAt: moment().add(5, 'days').toDate(),
         draggable: true,
         resizable: true,
-        actions: actions
+        actions: actions,
+        morningIncluded: false,
+        afternoonIncluded: true,
+        priority: 1
       }, {
         title: 'This is a really long event title that occurs on every year',
         color: calendarConfig.colorTypes.important,
@@ -73,8 +77,8 @@ angular
       });
     };
 
-    vm.eventClicked = function(event) {
-      alert.show('Clicked', event);
+    vm.eventClicked = function(events) {
+      alert.show('Clicked', events);
     };
 
     vm.dayClicked = function(day) {

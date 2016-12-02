@@ -73,7 +73,7 @@ angular
       if (vm.onDayClick && day.inMonth) {
         $event.stopPropagation();
         if (day.events.length > 0) {
-          vm.onEventClick({calendarEvent: day.events[0]});
+          vm.onEventClick({calendarEvent: day.events});
         } else {
           vm.onDayClick({day: day});
         }

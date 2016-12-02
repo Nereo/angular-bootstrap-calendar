@@ -14,17 +14,17 @@
     'cal-day-today': day.isToday && day.inMonth,
     'cal-day-future': day.isFuture,
     'cal-day-selected': vm.dateRangeSelect && vm.dateRangeSelect.startDate <= day.date && day.date <= vm.dateRangeSelect.endDate,
-    'cal-day-open': monthIndex === vm.openDayIndex[0] && dayIndex === vm.openDayIndex[1],
-    'cal-day-event': day.events.length > 0,
-    'cal-day-event-morning-only': day.events.length > 0 && vm.isMorningOnly(day, day.events[0]),
-    'cal-day-event-afternoon-only': day.events.length > 0 && vm.isAfternoonOnly(day, day.events[0])
+    'cal-day-open': monthIndex === vm.openDayIndex[0] && dayIndex === vm.openDayIndex[1]
   }">
 
-  <small
-    class="cal-events-num badge badge-important pull-left"
-    ng-show="day.badgeTotal > 0"
-    ng-bind="day.badgeTotal">
-  </small>
+  <div
+    ng-repeat="event in day.events | orderBy:'priority'"
+    class="cal-day-event"
+    ng-init="color = (event.color ? event.color.secondary : day.backgroundColor)"
+    ng-style="{
+      background: vm.isMorningOnly(day, event) ? 'linear-gradient(to right bottom, ' + color + ' 50%, rgba(255, 255, 255, 0) 50%)' : (vm.isAfternoonOnly(day, event) ? 'linear-gradient(to right bottom, rgba(255, 255, 255, 0) 50%, ' + color + ' 50%)' : color)
+    }">
+  </div>
 
   <span
     class="pull-right"
