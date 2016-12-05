@@ -72,12 +72,7 @@ angular
 
       if (vm.onDayClick && day.inMonth) {
         $event.stopPropagation();
-        if (day.events.length > 0) {
-          vm.onEventClick({calendarEvent: day.events});
-        } else {
-          vm.onDayClick({day: day});
-        }
-        return;
+        vm.onDayClick({day: day});
       }
 
       if (!dayClickedFirstRun) {
@@ -176,7 +171,6 @@ angular
         monthsToShow: '=',
         responsive: '=',
         onDayClick: '=',
-        onEventClick: '=',
         onEventTimesChanged: '=',
         onDateRangeSelect: '=',
         cellIsOpen: '=',

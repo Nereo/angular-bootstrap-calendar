@@ -78,10 +78,6 @@ angular
       });
     };
 
-    vm.eventClicked = function(events) {
-      alert.show('Clicked', events);
-    };
-
     vm.dayClicked = function(day) {
       alert.show('Day Clicked', day);
     };
