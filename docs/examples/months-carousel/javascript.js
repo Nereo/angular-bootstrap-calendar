@@ -94,6 +94,10 @@ angular
       alert.show('Dropped or resized', event);
     };
 
+    vm.onHover = function(day) {
+      console.log(day);
+    };
+
     vm.toggle = function($event, field, event) {
       $event.preventDefault();
       $event.stopPropagation();

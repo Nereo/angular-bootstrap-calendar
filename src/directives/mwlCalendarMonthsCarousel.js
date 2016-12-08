@@ -101,6 +101,14 @@ angular
 
     };
 
+    vm.dayHovered = function(day, $event) {
+      if (vm.onHover) {
+        $event.stopPropagation();
+        vm.onHover({day: day});
+      }
+      return;
+    };
+
     vm.handleEventDrop = function(event, newDayDate, draggedFromDate) {
 
       var newStart = moment(event.startsAt)
@@ -171,6 +179,7 @@ angular
         monthsToShow: '=',
         responsive: '=',
         onDayClick: '=',
+        onHover: '=',
         onEventTimesChanged: '=',
         onDateRangeSelect: '=',
         cellIsOpen: '=',

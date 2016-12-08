@@ -135,6 +135,7 @@ angular
         slideBoxDisabled: '=?',
         customTemplateUrls: '=?',
         onDayClick: '&?',
+        onHover: '&?',
         onEventClick: '&',
         onEventTimesChanged: '&',
         onTimespanClick: '&',
