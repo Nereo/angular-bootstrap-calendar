@@ -1,4 +1,4 @@
-<div ng-repeat="month in vm.months track by $index" class="cal-month-carousel" style="width:{{ 100 / vm.monthsToShow }}%;">
+<div ng-repeat="month in vm.months track by $index" class="cal-month-carousel" ng-style="{ width: '{{ 100 / vm.monthsToShow }}%' }">
 
   <h2 class="text-center">{{ month.firstDate | calendarDate:'monthYear':true }}</h2>
 
