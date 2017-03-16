@@ -27,7 +27,6 @@
       </div>
 
       <mwl-calendar-slide-box
-        is-open="vm.openRowIndex[0] === $parent.$index && vm.openRowIndex[1] === $index && (vm.cellAutoOpenDisabled || month.days[vm.openDayIndex[1]].events.length > 0) && !vm.slideBoxDisabled"
         events="month.days[vm.openDayIndex[1]].events"
         on-event-click="vm.onEventClick"
         cell="month.days[vm.openDayIndex[1]]"

@@ -36,10 +36,4 @@
     data-cal-date
     ng-bind="day.label">
   </span>
-
-  <div class="cal-day-tick" ng-show="monthIndex === vm.openDayIndex[0] && dayIndex === vm.openDayIndex[1] && (vm.cellAutoOpenDisabled || month[vm.openDayIndex[1]].events.length > 0) && !vm.slideBoxDisabled">
-    <i class="glyphicon glyphicon-chevron-up"></i>
-    <i class="fa fa-chevron-up"></i>
-  </div>
-
 </div>

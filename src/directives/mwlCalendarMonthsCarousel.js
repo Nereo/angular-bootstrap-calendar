@@ -10,24 +10,7 @@ angular
     var vm = this;
     vm.calendarConfig = calendarConfig;
     vm.calendarEventTitle = calendarEventTitle;
-    vm.openRowIndex = null;
     vm.defaultMonthsToShow = vm.monthsToShow;
-
-    function toggleCell() {
-      vm.openRowIndex = null;
-      vm.openDayIndex = null;
-
-      if (vm.cellIsOpen && vm.months) {
-        vm.months.forEach(function(month, monthIndex) {
-          month.days.forEach(function(day, dayIndex) {
-            if (moment(vm.viewDate).startOf('day').isSame(day.date)) {
-              vm.openDayIndex = (monthIndex, dayIndex);
-              vm.openRowIndex = (monthIndex, Math.floor(dayIndex / 7));
-            }
-          });
-        });
-      }
-    }
 
     $scope.$on('calendar.refreshView', function() {
       vm.checkResponsive(vm.carouselContainer.offsetWidth);
@@ -37,28 +20,7 @@ angular
       var monthView = calendarHelper.getMonthsCarouselView(vm.events, vm.viewDate, vm.monthsToShow, vm.cellModifier);
       vm.months = monthView.months;
 
-      if (vm.cellAutoOpenDisabled) {
-        toggleCell();
-      } else if (!vm.cellAutoOpenDisabled && vm.cellIsOpen && vm.openRowIndex === null) {
-        //Auto open the calendar to the current day if set
-        vm.openDayIndex = null;
-        vm.months.forEach(function(month, monthIndex) {
-          month.days.forEach(function(day) {
-            if (day.inMonth && moment(vm.viewDate).startOf('day').isSame(day.date)) {
-              vm.dayClicked(day, monthIndex, true);
-            }
-          });
-        });
-      }
-
     });
-
-    if (vm.cellAutoOpenDisabled) {
-      $scope.$watchGroup([
-        'vm.cellIsOpen',
-        'vm.viewDate',
-      ], toggleCell);
-    }
 
     vm.isMorningOnly = function(day, event) {
       return event.afternoonIncluded === false && moment(event.endsAt).isSame(day.date, 'day');
@@ -83,19 +45,6 @@ angular
         });
         if ($event && $event.defaultPrevented) {
           return;
-        }
-      }
-
-      if (!vm.cellAutoOpenDisabled) {
-        vm.openRowIndex = null;
-        var currentDayIndex = vm.months[currentMonthIndex].days.indexOf(day);
-        if (vm.openDayIndex && currentMonthIndex === vm.openDayIndex[0] && currentDayIndex === vm.openDayIndex[1]) {
-          vm.openDayIndex = null; //close the open day
-          vm.cellIsOpen = false;
-        } else {
-          vm.openDayIndex = (currentMonthIndex, currentDayIndex);
-          vm.openRowIndex = Math.floor(currentDayIndex / 7);
-          vm.cellIsOpen = true;
         }
       }
 
@@ -182,11 +131,8 @@ angular
         onHover: '=',
         onEventTimesChanged: '=',
         onDateRangeSelect: '=',
-        cellIsOpen: '=',
-        cellAutoOpenDisabled: '=',
         onTimespanClick: '=',
         cellModifier: '=',
-        slideBoxDisabled: '=',
         customTemplateUrls: '=?',
         templateScope: '=',
       },
